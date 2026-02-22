@@ -1,0 +1,49 @@
+<policies>
+  <inbound>
+    <base />
+    <choose>
+      <when condition="@(
+          context.Request.Url.Path.ToLower().Contains(&quot;/rest/admin&quot;)
+          || context.Request.Url.Path.ToLower().Contains(&quot;/metrics&quot;)
+          || context.Request.Url.Path.ToLower().Contains(&quot;/administration&quot;)
+          || context.Request.Url.Path.ToLower().Contains(&quot;/api/feedbacks&quot;)
+      )">
+        <choose>
+          <when condition="@{
+              var authHeader = context.Request.Headers.GetValueOrDefault(&quot;Authorization&quot;, &quot;&quot;);
+              var rawToken = authHeader.StartsWith(&quot;Bearer &quot;) ? authHeader.Substring(7) : authHeader;
+
+              var jwt = rawToken.AsJwt();
+
+              var upn = (jwt?.Claims.GetValueOrDefault(&quot;upn&quot;) ?? &quot;&quot;).ToLower();
+              var preferred = (jwt?.Claims.GetValueOrDefault(&quot;preferred_username&quot;) ?? &quot;&quot;).ToLower();
+
+              var user = !string.IsNullOrEmpty(upn) ? upn : preferred;
+
+              return user != &quot;p_admin@stephanieirinaexternaloutlo.onmicrosoft.com&quot;;
+          }">
+            <return-response>
+              <set-status code="403" reason="Forbidden" />
+              <set-header name="Content-Type" exists-action="override">
+                <value>text/plain</value>
+              </set-header>
+              <set-body>Access Denied: Restricted to Administrator only.</set-body>
+            </return-response>
+          </when>
+        </choose>
+      </when>
+    </choose>
+  </inbound>
+
+  <backend>
+    <base />
+  </backend>
+
+  <outbound>
+    <base />
+  </outbound>
+
+  <on-error>
+    <base />
+  </on-error>
+</policies>

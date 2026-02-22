@@ -1,0 +1,55 @@
+==============================================================================
+       PHASE P5 - CONTINUOUS GOVERNANCE & SECURITY POSTURE SNAPSHOT
+==============================================================================
+Audit Date      : Thu Feb 12 04:18:32 PM UTC 2026
+Tenant ID       : fd183baf-1827-4ebc-abbd-4542f13d881d
+Subscription    : Msc Project
+Auditor         : live.com#stephanie.irina.external@outlook.fr
+Target Scope    : rg-msc-ojshop-weu-01
+==============================================================================
+
+[1] SUBSCRIPTION OWNERS (HIGH PRIVILEGE ACCOUNTS)
+------------------------------------------------------------------------------
+Scanning for Subscription Owners (Drift Control)...
+Principal                                                                             Type    Scope
+------------------------------------------------------------------------------------  ------  ---------------------------------------------------
+stephanie.irina.external_outlook.fr#EXT#@stephanieirinaexternaloutlo.onmicrosoft.com  User    /subscriptions/6c23324a-621a-4d1f-a792-490a3912c524
+
+[2] RBAC SNAPSHOT - RESOURCE GROUP (rg-msc-ojshop-weu-01)
+------------------------------------------------------------------------------
+Listing all active permissions on the workload...
+
+
+[3] APP REGISTRATION GOVERNANCE (OWNERSHIP)
+------------------------------------------------------------------------------
+Target App ID: 4e92b0c7-396d-427c-818d-231d9e8a2815
+Owners:
+
+
+[4] CREDENTIALS & SECRET EXPIRATION STATUS
+------------------------------------------------------------------------------
+KeyId                                 Status
+------------------------------------  --------
+d4796be1-a1e9-44c1-8e26-8ce6f4f909e1  Active
+
+[5] DECLARED API PERMISSIONS (OAUTH2 SCOPES)
+------------------------------------------------------------------------------
+[
+  {
+    "resourceAccess": [
+      {
+        "id": "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
+        "type": "Scope"
+      }
+    ],
+    "resourceAppId": "00000003-0000-0000-c000-000000000000"
+  }
+]
+
+[6] AZURE DEFENDER SECURE SCORE
+------------------------------------------------------------------------------
+
+
+==============================================================================
+ END OF REPORT - INTEGRITY CHECKSUM: 39b85038183b308c
+==============================================================================

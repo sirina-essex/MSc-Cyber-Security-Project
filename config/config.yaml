@@ -1,0 +1,32 @@
+schema_version: "1.0"
+
+# --- CONFIGURATION IAM AZURE ---
+azure_tenant_id: "11111111-2222-3333-4444-555555555555"
+azure_client_id: "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+
+target:
+  base_url: "https://apim-msc-ojshop.azure-api.net"
+  request_timeout_seconds: 20
+  pause_between_actions_ms: 500
+
+personas:
+  - persona_id: "ADMIN"
+    username: "admin@juice-sh.op"
+    password: "admin123"
+    azure_email: "p_admin@tenantexample.onmicrosoft.com"
+
+  - persona_id: "STANDARD[1]"
+    username: "jim@juice-sh.op"
+    password: "ncc-1701"
+    azure_email: "p_standard1@tenantexample.onmicrosoft.com"
+
+  - persona_id: "STANDARD[2]"
+    username: "mc.safesearch@juice-sh.op"
+    password: "Mr. N00dles"
+    azure_email: "p_standard2@tenantexample.onmicrosoft.com"
+
+  - persona_id: "GUEST"
+    username: "guest@lab.local"
+    password: "1234"
+
+scenarios_path: "./scenarios"

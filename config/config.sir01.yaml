@@ -1,0 +1,22 @@
+schema_version: "1.0"
+
+target:
+  base_url: "https://apim-lab-ojshop.azure-api.net"
+  request_timeout_seconds: 15
+  pause_between_actions_ms: 0
+
+personas:
+  - persona_id: "ADMIN"
+    username: "admin@juice-sh.op"
+    password: "admin123"
+  - persona_id: "STANDARD[1]"
+    username: "jim@juice-sh.op"
+    password: "ncc-1701"
+  - persona_id: "STANDARD[2]"
+    username: "mc.safesearch@juice-sh.op"
+    password: "Mr. N00dles"
+  - persona_id: "GUEST"
+    username: "guest@lab.local"
+    password: "1234"
+
+scenarios_path: "./scenarios"

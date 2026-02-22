@@ -1,0 +1,48 @@
+<policies>
+    <inbound>
+        <base />
+        <choose>
+            <when condition="@(context.Request.Headers.GetValueOrDefault(&quot;X-Forwarded-For&quot;, &quot;&quot;).Contains(&quot;1.2.3.4&quot;))">
+                <return-response>
+                    <set-status code="403" reason="Forbidden" />
+                    <set-body>Security Alert: Untrusted Location Blocked</set-body>
+                </return-response>
+            </when>
+        </choose>
+        <choose>
+            <when condition="@(
+          context.Request.Url.Path.ToLower().Contains(&quot;/rest/admin&quot;)
+          || context.Request.Url.Path.ToLower().Contains(&quot;/metrics&quot;)
+          || context.Request.Url.Path.ToLower().Contains(&quot;/administration&quot;)
+          || context.Request.Url.Path.ToLower().Contains(&quot;/api/feedbacks&quot;)
+      )">
+                <choose>
+                    <when condition="@{
+              var authHeader = context.Request.Headers.GetValueOrDefault(&quot;Authorization&quot;, &quot;&quot;);
+              var rawToken = authHeader.StartsWith(&quot;Bearer &quot;) ? authHeader.Substring(7) : authHeader;
+              var jwt = rawToken.AsJwt();
+              var oid = jwt?.Claims.GetValueOrDefault(&quot;oid&quot;) ?? &quot;&quot;;
+              return oid != &quot;f24cc6b6-f729-4363-8ed5-42475e5d7269&quot;;
+          }">
+                        <return-response>
+                            <set-status code="403" reason="Forbidden" />
+                            <set-header name="Content-Type" exists-action="override">
+                                <value>text/plain</value>
+                            </set-header>
+                            <set-body>Access Denied: Restricted to Administrator only.</set-body>
+                        </return-response>
+                    </when>
+                </choose>
+            </when>
+        </choose>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
